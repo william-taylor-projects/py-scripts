@@ -1,2 +1,5 @@
+# Domain Script:
+#   The following script should
+#      a) Test domains are active and healthy
 
-print('HelloWorld')
+print 'Hello, World \n'
