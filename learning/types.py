@@ -16,6 +16,9 @@ stringValue = "String"
 # <class 'str' len = 1>
 charValue = stringValue[0]
 
+# <class 'NoneType'>
+noneValue = None
+
 # Collection Types
 
 # <class 'tuple'>
@@ -30,3 +33,12 @@ print(len(listValues)) # 3
 print(len(tupleValue)) # 3
 
 # Logical Operations
+
+# Identity operator
+a = 100
+b = a
+
+print (a is b)
+
+# Comparison operators
+
