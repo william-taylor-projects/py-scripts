@@ -31,14 +31,3 @@ list.append(listValues, 2)
 print(len(stringValue)) # 6
 print(len(listValues)) # 3
 print(len(tupleValue)) # 3
-
-# Logical Operations
-
-# Identity operator
-a = 100
-b = a
-
-print (a is b)
-
-# Comparison operators
-
