@@ -1,7 +1,14 @@
 
 import matplotlib.pyplot as plot
 
-plot.plot([ 1, 2, 3 ], ['1', '2', '3'])
-plot.xlabel('Grade %')
-plot.ylabel('Module Name')
+xbar = [ 0, 1, 2 ]
+ybar = [ 85, 75, 90 ]
+
+fig = plot.figure(1)
+fig.canvas.set_window_title('University Grades')
+
+plot.title('Grades')
+plot.plot(xbar, ybar)
+plot.xticks(xbar, ['A', 'B', 'C' ])
+plot.ylabel('Grade %')
 plot.show()
