@@ -1,5 +1,6 @@
 
 import collections
+#import frozenset
 import math
 
 # Tuples
@@ -34,6 +35,17 @@ list = [5, 5, 5, 5, 5]
 
 first, *rest =  list
 
+print(type(list))
 print(first, rest)
 
 # Set 
+primeNumbers = { 2, 3, 5, 7, 11, 13 }
+
+print(type(primeNumbers))
+
+primeNumbers.clear()
+primeNumbers.add(3)
+primeNumbers.add(3)
+
+print(primeNumbers)
+print(type(frozenset({ 1, 2, 3 })))
