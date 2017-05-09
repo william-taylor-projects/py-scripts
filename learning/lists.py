@@ -30,5 +30,10 @@ print(points)
 
 # Lists
 
-list = [5, 5, 5, 5, 5] 
+list = [5, 5, 5, 5, 5]
 
+first, *rest =  list
+
+print(first, rest)
+
+# Set 
