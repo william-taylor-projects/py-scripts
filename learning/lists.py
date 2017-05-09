@@ -81,7 +81,6 @@ while True:
 print("{0} -> product".format(product))
 
 # Copy
-
 shallow = list[:]
 shallowAgain = copy.copy(list)
 deepcopy = copy.deepcopy(list)
