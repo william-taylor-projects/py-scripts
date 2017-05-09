@@ -40,8 +40,9 @@ next_figure.counter = 0
 
 def show_year(graph_title, year):
     grades = list(year.values())
-    labels = list(range(len(grades)))
-    average = sum(grades) / len(grades)
+    grade_count = len(grades)
+    labels = list(range(grade_count))
+    average = sum(grades) / grade_count
 
     plot.rcParams["figure.figsize"] = (12, 6)
 
@@ -51,7 +52,7 @@ def show_year(graph_title, year):
     plot.title(graph_title)
     plot.plot(labels, list(year.values()))
     plot.plot(labels, list(year.values()), 'gs')
-    plot.plot(list(range(-1, len(grades)+1)), [average] * (2+len(grades)))
+    plot.plot([-1] + labels + [grade_count+1], [average] * (2 + grade_count))
     plot.axis([-1, len(grades), 0, 100])
     plot.xticks(labels, list(year.keys()), fontsize=5)
     plot.ylabel('Grades %')
