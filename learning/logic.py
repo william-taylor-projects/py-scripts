@@ -22,3 +22,39 @@ print (6 in c)
 # Logic operators
 
 print (not 7 and 5 or 3) # ! && ||
+
+def hello():
+    print("Hello")
+
+def nothing():
+    print("")
+
+# if statement
+if 0:
+    nothing()
+elif 0:
+    nothing()
+else:
+    hello()
+
+# Single line if
+print(20 if True else 10)
+
+# While
+while 0:
+    nothing()
+else:
+    hello()
+
+# For loop
+for number in range(5):
+    print(number)
+
+# Exception
+try:
+    raise ValueError()
+except Exception as err:
+    print("Exception: ", err)
+    pass
+finally:
+    nothing()
