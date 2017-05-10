@@ -58,3 +58,18 @@ except Exception as err:
     pass
 finally:
     nothing()
+
+def sum_of_powers(*numbers, power=1):
+    result = 0
+    for num in numbers:
+        result += num ** power
+    return result
+
+print(sum_of_powers(1, 2, 3))
+
+add = lambda x, y: x + y
+
+print(add(5, 5))
+
+# disable with -O
+assert 0 == 1
