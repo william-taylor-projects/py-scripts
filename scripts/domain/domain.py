@@ -1,19 +1,17 @@
-# Domain Script:
-#   The following script should
-#      a) Test domains are active and healthy
-#      b) Print success error etc with color codes
-#      c) use cli parsing lib
+"""Usage:
 
-from colorama import init, Fore, Back, Style
+"""
+from colorama import init as colorama, Fore, Back, Style
 from requests import get, status_codes
+from docopt import docopt
 
+docopt(__doc__, version='0.0.1')
+colorama()
 domains = [
     "http://www.williamsamtaylor.co.uk",
-    "http://www.youngmoneyren.org",
-    "http://www.should-throw-exception.com"
+    "http://www.should-throw-exception.com",
+    "http://www.youngmoneyren.org"
 ]
-
-init()
 
 print_success = lambda msg: print(Style.RESET_ALL + Fore.GREEN + msg)
 print_warning = lambda msg: print(Style.RESET_ALL + Fore.YELLOW + msg)
