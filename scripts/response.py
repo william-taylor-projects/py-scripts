@@ -1,6 +1,17 @@
-# Response Script:
-#   The following script should
-#      a) Test response times for various domains
-#      b) Plot response times into a viewable graph
+"""
+View response times in a nice graph
 
-print 'Hello, World \n'
+Usage:
+    
+
+Options:
+  
+
+Dependencies:
+   pip install python-hwinfo
+   pip install docopt
+
+Examples:
+    
+"""
+from docopt import docopt

@@ -1,5 +1,21 @@
+"""
+BSc University Grade Viewer.
 
-import matplotlib.pyplot as plot
+Usage:
+    
+
+Options:
+  
+
+Dependencies:
+   pip install matplotlib
+   pip install docopt
+
+Examples:
+    
+"""
+from matplotlib import pyplot as plot
+from docopt import docopt
 
 year_one = {
     "2D Graphics Programming": 81,

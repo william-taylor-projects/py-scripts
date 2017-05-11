@@ -1,6 +1,17 @@
-# Hardware Script:
-#   The following script should
-#      a) Show hardware on the PC
-#      b) Open hardware links in the browser
+"""
+Hardware descripter python program
 
-print 'Hello, World \n'
+Usage:
+    
+
+Options:
+  
+
+Dependencies:
+   pip install python-hwinfo
+   pip install docopt
+
+Examples:
+    
+"""
+from docopt import docopt
