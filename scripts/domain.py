@@ -20,15 +20,15 @@ Dependencies:
     pip install requests
     pip install colorama
 """
-from colorama import init as colorama, Fore, Back, Style
+from colorama import init as colours, Fore, Back, Style
 from urllib.parse import urlparse, ParseResult
 from requests import get, status_codes
 from docopt import docopt
 
-print_success = lambda msg: print(Style.RESET_ALL + Fore.GREEN + msg)
-print_warning = lambda msg: print(Style.RESET_ALL + Fore.YELLOW + msg)
-print_error = lambda msg: print(Style.RESET_ALL + Fore.RED + msg)
-print_info = lambda msg: print(Style.RESET_ALL + Fore.BLUE + msg)
+success = lambda msg: print(Style.RESET_ALL + Fore.GREEN + msg)
+warning = lambda msg: print(Style.RESET_ALL + Fore.YELLOW + msg)
+error = lambda msg: print(Style.RESET_ALL + Fore.RED + msg)
+info = lambda msg: print(Style.RESET_ALL + Fore.BLUE + msg)
 
 def read_status_code(resp):
     name = status_codes._codes[resp.status_code][0]
@@ -62,35 +62,30 @@ def ping_domains(timeout, repeat, headers, cookies, domains):
     for domain in domains:
         for attempt in range(repeat):
             if repeat == 1:
-                print_info("Trying {0}".format(domain))
+                info("Trying {0}".format(domain))
             else:
-                print_info("Trying {0}, Attempt #{1}".format(domain, attempt))
+                info("Trying {0}, Attempt #{1}".format(domain, attempt))
+
             try:
                 response = get(domain, timeout=timeout)
                 status = read_status_code(response)
 
                 if status[0] >= 200 and status[0] < 300:
-                    print_success("Code: {0} {1} ".format(*status))
+                    success("Code: {0} {1} ".format(*status))
                 elif status[0] >= 300 and status[0] < 400:
-                    print_warning("Code: {0} {1} ".format(*status))
+                    warning("Code: {0} {1} ".format(*status))
                 else:
-                    print_error("Code: {0} {1} ".format(*status))
-
-                print_success("Encoding: {0}".format(response.encoding))
+                    error("Code: {0} {1} ".format(*status))
+                    
+                success("Encoding: {0}".format(response.encoding))
 
                 if headers:
-                    print_success("Headers: {0}".format(read_headers(response)))
+                    success("Headers: {0}".format(read_headers(response)))
                 if cookies:
-                    print_success("Cookies: {0}".format(read_cookies(response)))
+                    success("Cookies: {0}".format(read_cookies(response)))
             except Exception:
                 print_error("Can't connect to {0}".format(domain))
-                print_success("Skipping to next {0}".format("domain" if repeat == 1 else "attempt"))
-
-test_domains = [
-    "williamsamtaylor.co.uk", 
-    "github.com/william-taylor", 
-    "youngmoneyren.org"
-]
+                success("Skipping to next {0}".format("domain" if repeat == 1 else "attempt"))
 
 def main():
     arguments = docopt(__doc__, version='0.1')    
@@ -99,13 +94,16 @@ def main():
     timeout = int(arguments["--timeout"])
     repeat = int(arguments["--repeat"] )
     domains = []
-
-    colorama()
+    colours()
 
     if arguments["<domain>"]:
         domains =  [fix_url(arguments["<domain>"])]
     elif arguments["test"]:
-        domains = list(map(lambda x: fix_url(x), test_domains))
+        domains = list(map(lambda x: fix_url(x), [
+            "williamsamtaylor.co.uk", 
+            "github.com/william-taylor", 
+            "youngmoneyren.org"
+        ]))
     elif arguments["<path>"]:
         with open(arguments["<path>"]) as file:
             for line in file.read().splitlines():
