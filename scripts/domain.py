@@ -1,5 +1,5 @@
 """
-Basic domain test cli utility.
+Domain testing utility.
 
 Usage:
     domain.py <domain> [--repeat=<times>] [--timeout=<secs>] [--headers=<show>] [--cookies=<show>]
@@ -19,6 +19,11 @@ Dependencies:
     pip install docopt
     pip install requests
     pip install colorama
+
+Examples:
+    domain.py bing.com --repeat=5 --timeout=1
+    domain.py file domains.txt --timeout=5
+    domain.py bing.com > out.txt
 """
 from colorama import init as colours, Fore, Back, Style
 from urllib.parse import urlparse, ParseResult
@@ -76,7 +81,7 @@ def ping_domains(timeout, repeat, headers, cookies, domains):
                     warning("Code: {0} {1} ".format(*status))
                 else:
                     error("Code: {0} {1} ".format(*status))
-                    
+
                 success("Encoding: {0}".format(response.encoding))
 
                 if headers:
@@ -89,8 +94,8 @@ def ping_domains(timeout, repeat, headers, cookies, domains):
 
 def main():
     arguments = docopt(__doc__, version='0.1')    
-    headers = bool(arguments["--headers"])
-    cookies = bool(arguments["--cookies"])
+    headers = arguments["--headers"] in ["True", "true", "1", "t"]
+    cookies = arguments["--cookies"] in ["True", "true", "1", "t"]
     timeout = int(arguments["--timeout"])
     repeat = int(arguments["--repeat"] )
     domains = []
