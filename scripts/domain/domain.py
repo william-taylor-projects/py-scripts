@@ -1,23 +1,23 @@
-"""Usage:
+"""
+Basic domain test and info cli utility
 
+Usage:
+    domain.py <domain>
+    domain.py --help
+    domain.py --version
+Options:
+    --help  Show help
+    --version Show version
 """
 from colorama import init as colorama, Fore, Back, Style
+from urllib.parse import urlparse, ParseResult
 from requests import get, status_codes
 from docopt import docopt
-
-docopt(__doc__, version='0.0.1')
-colorama()
-domains = [
-    "http://www.williamsamtaylor.co.uk",
-    "http://www.should-throw-exception.com",
-    "http://www.youngmoneyren.org"
-]
 
 print_success = lambda msg: print(Style.RESET_ALL + Fore.GREEN + msg)
 print_warning = lambda msg: print(Style.RESET_ALL + Fore.YELLOW + msg)
 print_error = lambda msg: print(Style.RESET_ALL + Fore.RED + msg)
 print_info = lambda msg: print(Style.RESET_ALL + Fore.BLUE + msg)
-print(Fore.CYAN + "Connecting to {0} domains...".format(len(domains)))
 
 CODE, NAME = (0, 1)
 
@@ -38,24 +38,52 @@ def cookies(resp):
         cookies_text += "\n  {0} = {1}".format(name, value)
     return cookies_text if len(cookies_text) else "None"
 
+def fix_url(url, protocol = "http"):
+    p = urlparse(url, protocol)
+    netloc = p.netloc or p.path
+    path = p.path if p.netloc else ''
+    if not netloc.startswith('www.'):
+        netloc = 'www.' + netloc
+    p = ParseResult(protocol, netloc, path, *p[3:])
+    return p.geturl()
 
-for domain in domains:
-    print_info("Trying {0}".format(domain))
-    response = None
-    try:
-        response = get(domain, timeout=1)
-        status = status_code(response)
+def ping_domains(domains):
+    print(Fore.CYAN + "Connecting to {0} domains...".format(len(domains)))
 
-        if status[CODE] >= 200 and status[CODE] < 300:
-            print_success("Code: {0} {1} ".format(*status))
-        elif status[CODE] >= 300 and status[CODE] < 400:
-            print_warning("Code: {0} {1} ".format(*status))
-        else:
-            print_error("Code: {0} {1} ".format(*status))
+    for domain in domains:
+        print_info("Trying {0}".format(domain))
+        response = None
+        try:
+            response = get(domain, timeout=1)
+            status = status_code(response)
 
-        print_success("Encoding: {0}".format(response.encoding))
-        print_success("Headers: {0}".format(headers(response)))
-        print_success("Cookies: {0}".format(cookies(response)))
-    except Exception:
-        print_error("Can't connect to {0}".format(domain))
-        print_success("Skipping to next domain name")
+            if status[CODE] >= 200 and status[CODE] < 300:
+                print_success("Code: {0} {1} ".format(*status))
+            elif status[CODE] >= 300 and status[CODE] < 400:
+                print_warning("Code: {0} {1} ".format(*status))
+            else:
+                print_error("Code: {0} {1} ".format(*status))
+
+            print_success("Encoding: {0}".format(response.encoding))
+            print_success("Headers: {0}".format(headers(response)))
+            print_success("Cookies: {0}".format(cookies(response)))
+        except Exception:
+            print_error("Can't connect to {0}".format(domain))
+            print_success("Skipping to next domain name")
+
+def main():
+    arguments = docopt(__doc__, version='1')    
+    colorama()
+
+    if arguments["<domain>"]:
+        domain = arguments["<domain>"]
+        ping_domains([fix_url(domain)])
+    else:
+        ping_domains([
+            "http://www.williamsamtaylor.co.uk",
+            "http://www.github.com/william-taylor",
+            "http://www.youngmoneyren.org",
+        ])
+
+if __name__ == '__main__':
+    main()
