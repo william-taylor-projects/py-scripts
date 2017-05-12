@@ -93,9 +93,10 @@ def ping_domains(timeout, repeat, headers, cookies, domains):
                 success("Skipping to next {0}".format("domain" if repeat == 1 else "attempt"))
 
 def main():
+    true_values = ["True", "true", "1", "t", "yes", "y"]
     arguments = docopt(__doc__, version='0.1')    
-    headers = arguments["--headers"] in ["True", "true", "1", "t"]
-    cookies = arguments["--cookies"] in ["True", "true", "1", "t"]
+    headers = arguments["--headers"] in true_values
+    cookies = arguments["--cookies"] in true_values
     timeout = int(arguments["--timeout"])
     repeat = int(arguments["--repeat"] )
     domains = []
