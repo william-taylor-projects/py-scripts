@@ -2,10 +2,17 @@
 BSc University Grade Viewer.
 
 Usage:
-    
+    grades.py [--y1] [--y2] [--y3] [--y4] [--pause]
+    grades.py -h | --help | -v | --version
 
 Options:
-  
+    -h --help         Show this screen.
+    -v --version      Show version.
+    -p --pause        Pause between each graph
+    --y1              Show year one
+    --y2              Show year two
+    --y3              Show year three
+    --y4              Show year four
 
 Dependencies:
    pip install matplotlib
@@ -46,7 +53,10 @@ year_three = {
 
 year_four = {
     "Games Console Development": 85.8,
-    "Serious Games": 81
+    "Serious Games": 81, 
+    "GPGPU & Accelerator Programming": 86,
+    "Computing Honours Project": 80, 
+    "3D Level Design": 90
 }
 
 def next_figure():
@@ -54,7 +64,7 @@ def next_figure():
   return next_figure.counter
 next_figure.counter = 0
 
-def show_year(graph_title, year):
+def show_year(graph_title, year, pause):
     grades = list(year.values())
     grade_count = len(grades)
     labels = list(range(grade_count))
@@ -72,9 +82,26 @@ def show_year(graph_title, year):
     plot.axis([-1, len(grades), 0, 100])
     plot.xticks(labels, list(year.keys()), fontsize=5)
     plot.ylabel('Grades %')
-    plot.show()
 
-show_year("Year One", year_one)
-show_year("Year Two", year_two)
-show_year("Year Three", year_three)
-show_year("Year Four", year_four)
+    if pause:
+        plot.show()
+
+def main():
+    config = docopt(__doc__, version='0.1')
+    pause = config['--pause']
+
+    if config['--y1']:
+        show_year("Year One", year_one, pause)
+    if config['--y2']:
+        show_year("Year Two", year_two, pause)
+    if config['--y3']:
+        show_year("Year Three", year_three, pause)
+    if config['--y4']:
+        show_year("Year Four", year_four, pause)
+
+    if not pause:
+        plot.show()
+    
+
+if __name__ == "__main__":
+    main()
