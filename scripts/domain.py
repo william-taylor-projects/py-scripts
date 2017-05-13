@@ -2,7 +2,7 @@
 Domain testing utility.
 
 Usage:
-    domain.py <domain> [--repeat=<times>] [--timeout=<secs>] [--headers=<show>] [--cookies=<show>]
+    domain.py domain <domain> [--repeat=<times>] [--timeout=<secs>] [--headers=<show>] [--cookies=<show>]
     domain.py file <path> [--repeat=<times>] [--timeout=<secs>] [--headers=<show>] [--cookies=<show>]
     domain.py test [--repeat=<times>] [--timeout=<secs>] [--headers=<show>] [--cookies=<show>]
     domain.py -h | --help | -v | --version
@@ -21,7 +21,7 @@ Dependencies:
     pip install colorama
 
 Examples:
-    domain.py bing.com --repeat=5 --timeout=1
+    domain.py domain bing.com --repeat=5 --timeout=1
     domain.py file domains.txt --timeout=5
     domain.py bing.com > out.txt
 """
@@ -101,6 +101,8 @@ def main():
     repeat = int(arguments["--repeat"] )
     domains = []
     colours()
+
+    print(arguments)
 
     if arguments["<domain>"]:
         domains =  [fix_url(arguments["<domain>"])]
