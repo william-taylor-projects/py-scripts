@@ -61,20 +61,15 @@ def get_gpu_info(pc, gpu_info):
 def main():
     config = docopt(__doc__, version='0.1')
     pc = WinInfo()
-
-    processor_info = pc.Win32_Processor()[0]
-    gpu_info = pc.Win32_VideoController()[0]
-    os_info = pc.Win32_OperatingSystem()[0]
-    pc_info = pc.Win32_ComputerSystem()[0]
-
+    
     if config['--cpu']:
-        get_cpu_info(pc, processor_info)
+        get_cpu_info(pc, pc.Win32_Processor()[0])
     if config['--gpu']:
-        get_gpu_info(pc, gpu_info)
+        get_gpu_info(pc, pc.Win32_VideoController()[0])
     if config['--ram']:
-        get_ram_info(pc, os_info)
+        get_ram_info(pc, pc.Win32_OperatingSystem()[0])
     if config['--os']:
-        get_os_info(pc, os_info)
+        get_os_info(pc, pc.Win32_OperatingSystem()[0])
 
 if __name__ == '__main__':
     main()
