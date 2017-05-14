@@ -19,7 +19,8 @@ Dependencies:
    pip install docopt
 
 Examples:
-    
+    grades.py --y3 --y4 --pause
+    grades.py --y1 --y2
 """
 from matplotlib import pyplot as plot
 from docopt import docopt
@@ -78,7 +79,7 @@ def show_year(graph_title, year, pause):
     plot.title(graph_title)
     plot.plot(labels, list(year.values()))
     plot.plot(labels, list(year.values()), 'gs')
-    plot.plot([-1] + labels + [grade_count+1], [average] * (2 + grade_count))
+    plot.plot([-1] + labels + [grade_count + 1], [average] * (2 + grade_count))
     plot.axis([-1, len(grades), 0, 100])
     plot.xticks(labels, list(year.keys()), fontsize=5)
     plot.ylabel('Grades %')
@@ -98,10 +99,8 @@ def main():
         show_year("Year Three", year_three, pause)
     if config['--y4']:
         show_year("Year Four", year_four, pause)
-
     if not pause:
-        plot.show()
-    
+        plot.show()    
 
 if __name__ == "__main__":
     main()
