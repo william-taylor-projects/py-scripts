@@ -11,8 +11,12 @@ Options:
     -v --version      Show version.
 
 Dependencies:
+   pip install requests
    pip install docopt
 
+Example:
+    response.py bing.com --times=10 > times.txt
+    response.py bing.com
 """
 from urllib.parse import urlparse, ParseResult
 from requests import get
@@ -41,7 +45,6 @@ def benchmark_domain(domain, times):
 def print_times(result_pair):
     print('Average: {0:0.2f} secs'.format(result_pair[0]))
     print('Times: ')
-
     for time in result_pair[1]:
         print('  {0:0.2f} secs'.format(time))
 

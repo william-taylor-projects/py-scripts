@@ -2,7 +2,7 @@
 Creates a redirect page for links on a LinkedIn profile page.
 
 Usage:
-    linkedin.py <image> <link> [--redirect=<v>]
+    linkedin.py <template> <image> <link> [--redirect=<v>]
     linkedin.py -h | --help | -v | --version
     
 Options:
@@ -13,8 +13,9 @@ Options:
 Dependencies:
    pip install docopt
 
-Example:
-    linkedin.py image.png google.com > index.html
+Examples:
+    linkedin.py ../data/template.html image.png google.com > index.html
+    linkedin.py custom.html image.png google.com > index.html
 """
 from urllib.parse import urlparse, ParseResult
 from docopt import docopt
@@ -36,7 +37,7 @@ def main():
     image = config["<image>"]
     link = config["<link>"]
 
-    with open('../data/template.html') as file:
+    with open(config['<template>']) as file:
         template = file.read().replace('\n', '')
         for (key, value) in tokens:
             template = template.replace(key, value)
