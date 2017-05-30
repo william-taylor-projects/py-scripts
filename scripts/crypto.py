@@ -3,7 +3,18 @@ Cryptography utility for securing data
 
 Usage:
     crypto.py <text>
+    crypto.py -h | --help | -v | --version
 
+Dependencies:
+    pip install cryptography
+    pip install docopt
+
+Options:
+  -h --help         Show this screen.
+  -v --version      Show version.
+
+Examples:
+    crypto.py helloworld
 """
 from cryptography.fernet import Fernet
 from docopt import docopt
