@@ -2,7 +2,7 @@
 Cryptography utility for securing data
 
 Usage:
-    crypto.py <text>
+    crypto.py <key> <text>
     crypto.py -h | --help | -v | --version
 
 Dependencies:
@@ -16,20 +16,26 @@ Options:
 Examples:
     crypto.py helloworld
 """
-from cryptography.fernet import Fernet
 from docopt import docopt
+from pyaes import *
 
-def main():
-    config = docopt(__doc__, version='0.1')
+import string
+import random
 
-    key = Fernet.generate_key()
-    txt = bytes(config['<text>'], 'utf-8')
+# We need a random initialization vector of 16 bytes
+init_vector = random.choice(string.ascii_letters) * 16
 
-    cipher_suite = Fernet(key)
-    cipher_text = cipher_suite.encrypt(txt)
+def main(config):
+    entered_key = config["<key>"]
 
-    print(key)
-    print(cipher_text)
+    if len(entered_key) is not 32:
+        print("Key must be 32 bytes...")
+    else:
+        aes = AESModeOfOperationCBC(entered_key, iv = init_vector.encode())
+        txt = aes.encrypt(config["<text>"])
+
+        print(repr(txt))
+
 
 if __name__ == '__main__':
-    main()
+    main(docopt(__doc__, version='0.1'))
