@@ -56,8 +56,8 @@ year_four = {
     "Games Console Development": 85.8,
     "Serious Games": 81, 
     "GPGPU & Accelerator Programming": 86,
-    "Computing Honours Project": 80, 
-    "3D Level Design": 90
+    "Computing Honours Project": 85.5, 
+    "3D Level Design": 95
 }
 
 def next_figure():
