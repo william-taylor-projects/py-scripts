@@ -14,7 +14,7 @@ Dependencies:
    pip install docopt
 
 Examples:
-    linkedin.py ../data/template.html image.png google.com > index.html
+    linkedin.py ../templates/template.html image.png google.com > index.html
     linkedin.py custom.html image.png google.com > index.html
 """
 from urllib.parse import urlparse, ParseResult
