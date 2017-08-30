@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Domain testing utility.
 
@@ -94,7 +95,7 @@ def ping_domains(timeout, repeat, headers, cookies, domains):
 
 def main():
     true_values = ["True", "true", "1", "t", "yes", "y"]
-    arguments = docopt(__doc__, version='0.1')    
+    arguments = docopt(__doc__, version='0.1')
     headers = arguments["--headers"] in true_values
     cookies = arguments["--cookies"] in true_values
     timeout = int(arguments["--timeout"])
@@ -108,15 +109,15 @@ def main():
         domains =  [fix_url(arguments["<domain>"])]
     elif arguments["test"]:
         domains = list(map(lambda x: fix_url(x), [
-            "williamsamtaylor.co.uk", 
-            "github.com/william-taylor", 
+            "williamsamtaylor.co.uk",
+            "github.com/william-taylor",
             "youngmoneyren.org"
         ]))
     elif arguments["<path>"]:
         with open(arguments["<path>"]) as file:
             for line in file.read().splitlines():
                 domains.append(fix_url(line))
-                
+
     ping_domains(timeout, repeat, headers, cookies, domains)
 
 if __name__ == '__main__':

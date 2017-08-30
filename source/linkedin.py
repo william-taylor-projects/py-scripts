@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
 """
 Creates a redirect page for links on a LinkedIn profile page.
 
 Usage:
     linkedin.py <template> <image> <link> [--redirect=<v>]
     linkedin.py -h | --help | -v | --version
-    
+
 Options:
   -h --help          Show this screen.
   -v --version       Show version.

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Benchmark response time on a domain
 

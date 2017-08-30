@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 BSc University Grade Viewer.
 
@@ -54,9 +55,9 @@ year_three = {
 
 year_four = {
     "Games Console Development": 85.8,
-    "Serious Games": 81, 
+    "Serious Games": 81,
     "GPGPU & Accelerator Programming": 86,
-    "Computing Honours Project": 85.5, 
+    "Computing Honours Project": 85.5,
     "3D Level Design": 95
 }
 
@@ -100,7 +101,7 @@ def main():
     if config['--y4']:
         show_year("Year Four", year_four, pause)
     if not pause:
-        plot.show()    
+        plot.show()
 
 if __name__ == "__main__":
     main()

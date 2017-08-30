@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Hardware descripter python program
 
@@ -38,10 +39,10 @@ def get_cpu_info(pc, cpu_info):
 
 def get_ram_info(pc, os_info):
     print("Visiable Memory Size: {0}".format(os_info.TotalVisibleMemorySize))
-    print("Virtual Memory Size: {0}".format(os_info.TotalVirtualMemorySize)) 
+    print("Virtual Memory Size: {0}".format(os_info.TotalVirtualMemorySize))
     print("Free Space In Paging Files: {0}".format(os_info.FreeSpaceInPagingFiles))
-    print("Free Physical Memory: {0}".format(os_info.FreePhysicalMemory)) 
-    print("Free Virtual Memory: {0}".format(os_info.FreeVirtualMemory)) 
+    print("Free Physical Memory: {0}".format(os_info.FreePhysicalMemory))
+    print("Free Virtual Memory: {0}".format(os_info.FreeVirtualMemory))
 
 def get_os_info(pc, os_info):
     print('OS Name: {0}'.format(os_info.Caption))
@@ -61,7 +62,7 @@ def get_gpu_info(pc, gpu_info):
 def main():
     config = docopt(__doc__, version='0.1')
     pc = WinInfo()
-    
+
     if config['--cpu']:
         get_cpu_info(pc, pc.Win32_Processor()[0])
     if config['--gpu']:
